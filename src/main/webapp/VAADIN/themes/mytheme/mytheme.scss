@@ -1,0 +1,120 @@
+// Global variable overrides. Must be declared before importing Valo.
+// Defines the plaintext font size, weight and family. Font size affects general component sizing.
+//$v-font-size: 16px;
+//$v-font-weight: 300;
+//$v-font-family: "Open Sans", sans-serif;
+// Defines the border used by all components.
+//$v-border: 1px solid (v-shade 0.7);
+//$v-border-radius: 4px;
+// Affects the visual appearance of all components
+//$v-gradient: v-linear 8%;
+//$v-bevel-depth: 30%;
+//$v-shadow-opacity: 5%;
+// Defines colors for indicating status (focus, success, failure)
+//$v-focus-color: valo-focus-color(); // Calculates a suitable color automatically
+//$v-friendly-color: #2c9720;
+//$v-error-indicator-color: #ed473b;
+// For more information, see: https://vaadin.com/book/-/page/themes.valo.html
+// Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
+// Affects the color of some component elements, e.g Button, Panel title, etc
+//
+//$v-background-color: hsla(102, 18%, 14%, 0.05);
+// Affects the color of content areas, e.g  Panel and Window content, TextField input etc
+//$v-app-background-color: $v-background-color;
+@import "../valo/valo.scss";
+@import "views/render";
+
+.v-grid-cell-focused:before {
+  display: none !important;
+}
+
+$v-focus-style: none;
+
+
+@mixin mytheme {
+  @include valo;
+  @include render;
+
+  .position {
+    margin-left: 50px;
+  }
+
+
+  .responsive {
+
+    .title {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 30px;
+      padding: 5px;
+    }
+
+    .itembox {
+      white-space: normal;
+      vertical-align: top;
+    }
+
+    .itembox.v-label {
+      padding: 5px
+    }
+  }
+
+  .responsive[width-range~="0-499px"] {
+    .itembox {
+      width: 100%
+    }
+  }
+
+  .responsive[width-range~="500px-"] {
+    .itembox {
+      width: 20%
+    }
+  }
+
+
+  /* Basic settings for all sizes */
+  .myresponsive {
+  }
+
+  /* Small size */
+  .myresponsive[width-range~="0-300px"] {
+    width: 40%;
+  }
+
+  /* Medium size */
+  .myresponsive[width-range~="301px-600px"] {
+    width: 60%;
+  }
+
+  /* Anything bigger */
+  .myresponsive[width-range~="601px-"] {
+    width: 100%;
+  }
+
+
+  .notePanelMargin {
+    padding-left: 4px !important;
+
+  }
+
+
+  .login-box {
+    width: 400px;
+  }
+
+  .navbar {
+    width: 250px;
+    position: relative;
+
+    .valo-menu-item,
+    .valo-menu-title {
+      text-align: left;
+    }
+
+    .logout {
+      position: absolute;
+      bottom: 10px;
+    }
+  }
+
+}

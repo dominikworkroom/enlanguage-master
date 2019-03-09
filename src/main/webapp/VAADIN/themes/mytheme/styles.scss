@@ -1,0 +1,11 @@
+@import "addons.scss";
+@import "mytheme.scss";
+
+// This file prefixes all rules with the theme name to avoid causing conflicts with other VAADIN.themes.
+// The actual styles should be defined in mytheme.scss
+
+.mytheme {
+  @include addons;
+  @include mytheme;
+
+}
