@@ -13,6 +13,7 @@ import com.enlanguage.system.server.utils.TextFieldClear;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,8 @@ import java.util.List;
 @Service
 @Transactional
 public class ManageVocabularyServiceImpl implements ManageVocabularyService {
+
+  private static final String SUCCESSFUL_ADDING_WORD_MESSAGE = "You added remember word to RememberBox!";
 
   @Autowired
   private VocabularyRepository vocabularyRepository;
@@ -136,9 +139,35 @@ public class ManageVocabularyServiceImpl implements ManageVocabularyService {
           + " words, your free slots in Remember Box : "
           + freeSlots + " - delete some words so that add another ones", Type.WARNING_MESSAGE);
     } else {
-      saveRememberWords(selectedItems, currentUser);
-      Notification.show("You added remember word to RememberBox!");
+      if (currentUser.getBoxwords() != null && currentUser.getBoxwords().size() > 0) {
+        currentUser.getBoxwords().forEach(boxWord -> {
+          if (!checkIfWordExistInRememberBox(selectedItems, boxWord)) {
+            saveRememberWords(selectedItems, currentUser);
+            Notification.show(SUCCESSFUL_ADDING_WORD_MESSAGE);
+          } else {
+            Notification.show("Word with name: " + boxWord.getBaseBoXword()
+                + " / " + boxWord.getMeaningBoxWord() + " exists in remember box.");
+          }
+        });
+      } else {
+        saveRememberWords(selectedItems, currentUser);
+        Notification.show(SUCCESSFUL_ADDING_WORD_MESSAGE);
+      }
+
+
     }
+  }
+
+  private boolean checkIfWordExistInRememberBox(Set<VocabularyPackageDTO> selectedItems,
+      BoxWord boxWord) {
+    return selectedItems.stream().anyMatch(wordExists(boxWord));
+
+  }
+
+  private Predicate<VocabularyPackageDTO> wordExists(BoxWord boxWord) {
+
+    return p -> p.getBaseWord().equals(boxWord.getBaseBoXword())
+        && p.getMeaningWord().equals(boxWord.getMeaningBoxWord());
   }
 
   @Override
@@ -184,7 +213,7 @@ public class ManageVocabularyServiceImpl implements ManageVocabularyService {
     boxWord.setUser(currentUser);
     boxWord.setBaseBoXword(selectedItem.getBaseWord());
     boxWord.setBaseBoxWordLang(selectedItem.getBaseWordLang());
-    boxWord.setMeaningBoxWord(selectedItem.getBaseWord());
+    boxWord.setMeaningBoxWord(selectedItem.getMeaningWord());
     boxWord.setMeaningBoxWordLang(selectedItem.getMeaningWordLang());
     return boxWord;
   }
