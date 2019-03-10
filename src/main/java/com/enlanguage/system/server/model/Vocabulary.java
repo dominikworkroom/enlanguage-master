@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by Dominik on 27.04.2017.
  */
 @Entity
-@Table(name = "dc_word")
+@Table(name = "vocabularies")
 public class Vocabulary implements Serializable {
 
   @Id
