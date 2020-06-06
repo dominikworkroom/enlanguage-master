@@ -36,6 +36,7 @@ import javax.inject.Inject;
 @Title("Enlanguage App")
 @SpringUI(path = "/")
 @SpringViewDisplay
+// comment
 public class EnlanguageUI extends UI implements ViewDisplay {
 
   @Inject
