@@ -10,7 +10,7 @@ import java.util.Date;
 public class Note {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column(name = "theme")

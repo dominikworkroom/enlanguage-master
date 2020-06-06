@@ -19,7 +19,7 @@ public class Role implements Serializable {
   }
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Enumerated(value = EnumType.STRING)
@@ -31,7 +31,7 @@ public class Role implements Serializable {
   @Column(name = "created_at", updatable = false)
   private Date createdDate;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY , cascade = {CascadeType.ALL})
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
 

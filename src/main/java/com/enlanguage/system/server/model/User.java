@@ -1,6 +1,9 @@
 package com.enlanguage.system.server.model;
 
 import com.enlanguage.system.server.model.enumeration.RoleType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +17,7 @@ import java.util.List;
 public class User implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   @Column(name = "id")
   private Long id;
 
@@ -26,7 +29,9 @@ public class User implements Serializable {
   @Column(name = "password")
   private String password;
 
-  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  @NotFound(action = NotFoundAction.IGNORE)
   private List<Role> roles;
 
   @Column(name = "is_active")
@@ -38,7 +43,7 @@ public class User implements Serializable {
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private List<Vocabulary> vocabularies = new ArrayList<>();
 
-  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private List<Note> notes;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

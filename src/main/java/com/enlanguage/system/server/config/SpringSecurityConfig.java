@@ -51,7 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService);
     auth.jdbcAuthentication();
-    initCreatingUser();
+//    initCreatingUser();
   }
 
 
@@ -108,47 +108,47 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
 
-  public void initCreatingUser() {
-
-    User user = new User();
-    user.setId(1L);
-    user.setActive(true);
-    user.setCreateAt(new Date());
-    user.setPassword("admin123");
-    user.setUsername("admin");
-    user.setRoles(Arrays.asList(initUserRole(user), initAdminRole(user)));
-
-    User user2 = new User();
-    user2.setId(2L);
-    user2.setActive(true);
-    user2.setCreateAt(new Date());
-    user2.setPassword("user123");
-    user2.setUsername("user");
-    user2.setRoles(Collections.singletonList(initUserRole(user2)));
-
-    userRepository.save(user);
-    userRepository.save(user2);
-  }
-
-  private Role initAdminRole(User user) {
-
-    Role adminRole = new Role();
-    adminRole.setType(RoleType.ROLE_ADMIN);
-    adminRole.setId(2L);
-    adminRole.setCreatedDate(new Date());
-    adminRole.setUser(user);
-
-    return adminRole;
-  }
-
-  private Role initUserRole(User user) {
-    Role userRole = new Role();
-    userRole.setType(RoleType.ROLE_USER);
-    userRole.setId(1L);
-    userRole.setCreatedDate(new Date());
-    userRole.setUser(user);
-
-    return userRole;
-  }
+//  public void initCreatingUser() {
+//
+//    User user = new User();
+//    user.setId(1L);
+//    user.setActive(true);
+//    user.setCreateAt(new Date());
+//    user.setPassword("admin123");
+//    user.setUsername("admin");
+//    user.setRoles(Arrays.asList(initUserRole(user), initAdminRole(user)));
+//
+//    User user2 = new User();
+//    user2.setId(2L);
+//    user2.setActive(true);
+//    user2.setCreateAt(new Date());
+//    user2.setPassword("user123");
+//    user2.setUsername("user");
+//    user2.setRoles(Collections.singletonList(initUserRole(user2)));
+//
+//    userRepository.save(user);
+//    userRepository.save(user2);
+//  }
+//
+//  private Role initAdminRole(User user) {
+//
+//    Role adminRole = new Role();
+//    adminRole.setType(RoleType.ROLE_ADMIN);
+//    adminRole.setId(2L);
+//    adminRole.setCreatedDate(new Date());
+//    adminRole.setUser(user);
+//
+//    return adminRole;
+//  }
+//
+//  private Role initUserRole(User user) {
+//    Role userRole = new Role();
+//    userRole.setType(RoleType.ROLE_USER);
+//    userRole.setId(1L);
+//    userRole.setCreatedDate(new Date());
+//    userRole.setUser(user);
+//
+//    return userRole;
+//  }
 
 }
