@@ -36,7 +36,7 @@ import javax.inject.Inject;
 @Title("Enlanguage App")
 @SpringUI(path = "/")
 @SpringViewDisplay
-// comment
+// comment dla merge
 public class EnlanguageUI extends UI implements ViewDisplay {
 
   @Inject
